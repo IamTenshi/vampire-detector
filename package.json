@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "directories": {
+    "lib": "lib"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.12.12"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "deno run --allow-env --allow-sys index.ts"
   },
   "dependencies": {
     "chalk": "^5.3.0"
-  }
+  },
+  "author": "",
+  "license": "ISC"
 }
