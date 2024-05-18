@@ -1,4 +1,4 @@
-import users from "./users.json" assert { type: "json" };
+import users from "./users.json" with { type: "json" };
 import chalk from "chalk";
 
 interface User {
@@ -46,19 +46,12 @@ function sortGays(gays: User[]): User[] {
 
 function showGays(sortedGays: User[]): void {
   sortedGays.forEach((gay, index) => {
-    console.log(
-      `- ${gay.username} es el pajaro numero ${
-        index + 1
-      } con tan solo ${gay.age} años`,
-    );
+    console.log(`- ${gay.username} es el pajaro numero ${index + 1} con tan solo ${gay.age} años`);
   });
 }
 
 function countGays(gays: User[]): void {
-  const totalOfGays: number = gays.reduce(
-    (gayAmount, gay) => gayAmount + gay.value,
-    0,
-  );
+  const totalOfGays: number = gays.reduce((gayAmount, gay) => gayAmount + gay.value, 0);
   if (totalOfGays === 0) {
     console.log(`No se han encontrado homosexuales`);
   } else {
