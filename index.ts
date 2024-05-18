@@ -1,12 +1,19 @@
-import users from './users.json' assert { type: 'json' };
-import chalk from 'chalk';
+import users from "./users.json" assert { type: "json" };
+import chalk from "chalk";
 
-function main() {
-  const people = users.map((user, index) => ({
+interface User {
+  username: string;
+  age: number;
+  isGay: boolean;
+  value: number;
+}
+
+function main(): void {
+  const people: User[] = users.map((user, index) => ({
     ...user,
     age: randomRangeNumber(18, 25),
     value: 1,
-    isGay: index % 2 == 0 ? true : false
+    isGay: index % 2 == 0 ? true : false,
   }));
 
   const gays = people.filter((person) => person.isGay);
@@ -19,32 +26,39 @@ function main() {
   countGays(sortedGays);
 }
 
-function randomRangeNumber(min, max){
+function randomRangeNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function isThereGayPresence(people) {
-  const gayPresence = people.some((person) => person.isGay);
+function isThereGayPresence(people: User[]): void {
+  const gayPresence: boolean = people.some((person) => person.isGay);
   if (gayPresence) {
-    console.log(chalk.red('Hay presencia de homosexualidad\n'));
-    console.log('Buscando maricones...\n');
+    console.log(chalk.red("Hay presencia de homosexualidad\n"));
+    console.log("Buscando maricones...\n");
   } else {
-    console.log(chalk.green('No hay presencia de homosexualidad\n'));
+    console.log(chalk.green("No hay presencia de homosexualidad\n"));
   }
 }
 
-function sortGays(gays) {
+function sortGays(gays: User[]): User[] {
   return gays.sort((first, second) => first.age - second.age);
 }
 
-function showGays(sortedGays) {
-  return sortedGays.forEach((gay, index) => {
-    console.log(`- ${gay.username} es el pajaro numero ${index + 1} con tan solo ${gay.age} años`);
+function showGays(sortedGays: User[]): void {
+  sortedGays.forEach((gay, index) => {
+    console.log(
+      `- ${gay.username} es el pajaro numero ${
+        index + 1
+      } con tan solo ${gay.age} años`,
+    );
   });
 }
 
-function countGays(gays) {
-  const totalOfGays = gays.reduce((gayAmount, gay) => gayAmount + gay.value, 0);
+function countGays(gays: User[]): void {
+  const totalOfGays: number = gays.reduce(
+    (gayAmount, gay) => gayAmount + gay.value,
+    0,
+  );
   if (totalOfGays === 0) {
     console.log(`No se han encontrado homosexuales`);
   } else {
