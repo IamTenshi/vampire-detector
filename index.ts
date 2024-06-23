@@ -4,58 +4,58 @@ import chalk from "chalk";
 interface User {
   username: string;
   age: number;
-  isGay: boolean;
+  isVampire: boolean;
   value: number;
 }
 
 function main(): void {
-  const people: User[] = users.map((user, index) => ({
+  const people: User[] = users.map((user) => ({
     ...user,
-    age: randomRangeNumber(18, 25),
+    age: randomRangeNumber(18, 65),
     value: 1,
-    isGay: index % 2 == 0 ? true : false,
+    isVampire: randomRangeNumber(0, 1) === 1, // Asumimos que la condición de vampiro es aleatoria.
   }));
 
-  const gays = people.filter((person) => person.isGay);
+  const vampires = people.filter((person) => person.isVampire);
 
-  console.log(`Comprobando si hay homosexuales...\n`);
-  isThereGayPresence(people);
+  console.log(`Comprobando si hay vampiros...\n`);
+  isThereVampirePresence(people);
 
-  const sortedGays = sortGays(gays);
-  showGays(sortedGays);
-  countGays(sortedGays);
+  const sortedVampires = sortVampires(vampires);
+  showVampires(sortedVampires);
+  countVampires(sortedVampires);
 }
 
-function randomRangeNumber(min: number, max: number) {
+function randomRangeNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function isThereGayPresence(people: User[]): void {
-  const gayPresence: boolean = people.some((person) => person.isGay);
-  if (gayPresence) {
-    console.log(chalk.red("Hay presencia de homosexualidad\n"));
-    console.log("Buscando maricones...\n");
+function isThereVampirePresence(people: User[]): void {
+  const vampirePresence: boolean = people.some((person) => person.isVampire);
+  if (vampirePresence) {
+    console.log(chalk.red("Hay vampiros presentes\n"));
+    console.log("Buscando vampiros...\n");
   } else {
-    console.log(chalk.green("No hay presencia de homosexualidad\n"));
+    console.log(chalk.green("No hay vampiros presentes\n"));
   }
 }
 
-function sortGays(gays: User[]): User[] {
-  return gays.sort((first, second) => first.age - second.age);
+function sortVampires(vampires: User[]): User[] {
+  return vampires.sort((first, second) => first.age - second.age);
 }
 
-function showGays(sortedGays: User[]): void {
-  sortedGays.forEach((gay, index) => {
-    console.log(`- ${gay.username} es el pajaro numero ${index + 1} con tan solo ${gay.age} años`);
+function showVampires(sortedVampires: User[]): void {
+  sortedVampires.forEach((vampire, index) => {
+    console.log(`- ${vampire.username} es el vampiro número ${index + 1} con ${vampire.age} años`);
   });
 }
 
-function countGays(gays: User[]): void {
-  const totalOfGays: number = gays.reduce((gayAmount, gay) => gayAmount + gay.value, 0);
-  if (totalOfGays === 0) {
-    console.log(`No se han encontrado homosexuales`);
+function countVampires(vampires: User[]): void {
+  const totalOfVampires: number = vampires.reduce((vampireCount, vampire) => vampireCount + vampire.value, 0);
+  if (totalOfVampires === 0) {
+    console.log(`No se han encontrado vampiros`);
   } else {
-    console.log(`\n${totalOfGays} homosexuales encontrados`);
+    console.log(`\n${totalOfVampires} vampiros encontrados`);
   }
 }
 
